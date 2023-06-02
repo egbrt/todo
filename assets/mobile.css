@@ -1,0 +1,171 @@
+:root {
+    --background: white;
+    --text-color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+    --background: black;
+    --text-color: white;
+}
+
+[theme="dark"] {
+    --background: black;
+    --text-color: white;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text-color);
+}
+
+.contents {
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    right: 4px;
+    bottom: 40px;
+    overflow: auto;
+}
+
+#versionInfo {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    font-size: 10px;
+}
+
+#options {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    height: 40px;
+    bottom: 0px;
+    border-width: 2px 0px 0px 0px;
+	border-style: solid;
+}
+
+#optionMode {
+    width: 60px;
+    height: 26px;
+}
+
+#optionSave {
+    display: none;
+    width: 60px;
+    height: 26px;
+}
+
+#optionDelete {
+    display: none;
+    width: 60px;
+    height: 26px;
+}
+
+#optionSettings {
+    position: absolute;
+    right: 0px;
+    height: 26px;
+}
+
+#rawToDo {
+    display: none;
+}
+
+#newToDo {
+    display: none;
+}
+
+#newDescription {
+    position: absolute;
+    width: 90%;
+}
+
+#newKeys {
+    width: 98%;
+}
+
+#newRecurrence {
+    position: absolute;
+    right: 140px;
+}
+
+#newRecurrenceNumber {
+    position: absolute;
+    right: 90px;
+}
+
+#newRecurrenceType {
+    position: absolute;
+    right: 4px;
+}
+
+.selection {
+    position: absolute;
+    top: 140px;
+    bottom: 4px;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+}
+
+#newContexts {
+    left: 4px;
+    width: 40%;
+}
+
+#newProjects {
+    left: 50%;
+    right: 4px;
+}
+
+.selection ul {
+    list-style: none;
+    padding: 0px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.selection ul li {
+    cursor: pointer;
+}
+
+.selection ul li.selected {
+    background-color: darkgray;
+    color: lightgray;
+}
+
+#dueToDo p {
+    cursor: pointer;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+#dueToDo ul {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.dueDate {
+    font-weight: bold;
+}
+
+.completed {
+    font-style: italic;
+}
+
+.tasks {
+    list-style: none;
+    cursor: pointer;
+}
+
+#settings {
+    display: none;
+    top: 10px;
+    left: 20px;
+    right: 20px;
+    bottom: 80px;
+    padding: 8px;
+    background: var(--background);
+    border-width: 1px;
+	border-style: solid;
+    box-shadow: 4px 4px 4px darkgray;
+}

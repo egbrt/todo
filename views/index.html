@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ToDo</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Simple smart home application" />
+    <meta name="author" content="Egbert van der Haring" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#005070"/>
+    <link rel="stylesheet" href="../assets/mobile.css" type="text/css" />
+	<script type="text/javascript" src="../node_modules/androidjs/lib/androidjs.js"></script>
+	<script type="text/javascript" src="../assets/jquery.min.js"></script>
+	<script type="text/javascript" src="../assets/androidjs.js"></script>
+	<script type="module" src="../assets/mobile.js"></script>
+</head>
+
+<body>
+<div id="rawToDo" class="contents"></div>
+<div id="dueToDo" class="contents"></div>
+<div id="newToDo" class="contents">
+    <p><select name="newPriority" id="newPriority"></select><input type="text" id="newDescription"></input></p>
+    <p>Context(s), project(s) and/or key:value pair(s):<br/>
+    <input type="text" id="newKeys"></input><br/>
+    <label for="newDueDate">Due: </label><input type="date" id="newDueDate"></input>
+    <label id="newRecurrence" for="newRecurrenceNumber">Recurrent:</label>
+    <select id="newRecurrenceNumber" name="newRecurrenceNumber"><select>
+    <select id="newRecurrenceType" name="newRecurrenceType"><select>
+    </p>
+    <div id="newContexts" class="selection" ><ul/></div>
+    <div id="newProjects" class="selection" ><ul/></div>
+</div>
+
+<div id="settings" class="contents">
+    <p><label for="setTheme">Theme: </label>
+    <select id="setTheme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>"
+    </select></p>
+    <p><label for="setDelete">Delete checked tasks after: </label>
+    <select id="setDeleteNumber" name="setDeleteNumber"><select>
+    <select id="setDeleteType" name="setDeleteType"><select></p>
+    <p>ToDo caches the contents of <em>Documents/todo.txt</em>. If you have edited, or changed <em>Documents/todo.txt</em> 
+    with another app, then press <button id="reloadToDo">this button</button> to load the contents of the changed file.</p>
+</div>
+
+<div id="options">
+    <button id="optionMode">Check</button>
+    <select name="optionContext" id="optionContext">
+        <option value="@any">@any</option>
+    </select>
+    <select name="optionProject" id="optionProject">
+        <option value="+all">+all</option>
+    </select>
+    <button id="optionSave">Save</button>
+    <button id="optionDelete">Delete</button>
+    <button id="optionSettings">Settings</button>
+    <span id="versionInfo">ToDo 0.4.00</span>
+</div>
+</body>
+
+</html>
