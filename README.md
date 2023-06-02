@@ -6,3 +6,7 @@ It is a simple ToDo app that uses the todotxt format from [Gina Trapani](http://
 To build the app, download [androidjs](https://android-js.github.io/) and after creating a androidjs project
 copy the files from this repository into your androidjs project.
 
+# Screenshots
+![ToDo screenshot](doc/tasks.png)
+![ToDo screenshot](doc/new_task.png)
+![ToDo screenshot](doc/settings.png)
