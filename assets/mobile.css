@@ -27,6 +27,14 @@ body {
     overflow: auto;
 }
 
+ul.tasks {
+    margin-bottom: 18px;
+}
+
+ul.tasks li {
+    margin-bottom: 8px;
+}
+
 #versionInfo {
     position: absolute;
     left: 0px;
