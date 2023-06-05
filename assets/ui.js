@@ -17,6 +17,7 @@ export class UI {
         this.settingsVisible = false;
         this.deleteNumber = 0;
         this.deleteType = "d";
+        this.delayedComplete = null;
 
         let stored = window.localStorage.getItem("theme");
         if (stored) this.theme = stored;
@@ -162,10 +163,7 @@ export class UI {
         
         $("#dueToDo ul li").click(function() {
             if (ui.mode == CHECK) {
-                ui.checkTask(todo.tasks[this.id]);
-                todo.sort();
-                todo.write();
-                ui.showTasks(todo);
+                ui.delayedCheck(this, todo);
             }
             else { // ui.mode == EDIT
                 todo.changingTask = this.id;
@@ -174,6 +172,26 @@ export class UI {
                 $("#optionMode").html(ui.mode);
             }
         });
+    }
+    
+    
+    delayedCheck(item, todo)
+    {
+        let ui = this;
+        if ($(item).hasClass("checked")) {
+            $(item).removeClass("checked");
+            clearTimeout(ui.delayedComplete);
+        }
+        else {
+            let taskId = item.id;
+            $(item).addClass("checked");
+            ui.delayedComplete = setTimeout(function() {
+                ui.checkTask(todo.tasks[taskId]);
+                todo.sort();
+                todo.write();
+                ui.showTasks(todo);
+            }, 3000);
+        }
     }
 
     
