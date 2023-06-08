@@ -3,7 +3,7 @@ import {ToDo} from "./todo.js";
 
 const CHECK = "Check";
 const EDIT = "Edit";
-const NEW = "New";
+const ADD = "Add";
 const EDITING = "Cancel";
 const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
@@ -342,7 +342,7 @@ export class UI {
         let recType = $("#newRecurrenceType").val();
         if (recNumber > 0) line += " rec:" + recNumber + recType;
         let task = new Task(line);
-        if (this.mode == NEW) {
+        if (this.mode == ADD) {
             todo.add(task);
         }
         else if (this.mode == EDITING) {
@@ -404,7 +404,7 @@ export class UI {
             $('#optionSave').attr('disabled', ($("#newDescription").val() == ""));
             let date = new Date().toISOString().substr(0,10);
             $("#newDueDate").val(date);
-            this.mode = NEW;
+            this.mode = ADD;
         }
         else {
             $("#optionSave").hide();
