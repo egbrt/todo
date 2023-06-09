@@ -1,5 +1,5 @@
 {
-    "version": "0.4.0",
+    "version": "0.5.20",
     "name": "ToDo",
     "app-name": "todo",
     "package-name": "webview",
@@ -10,7 +10,8 @@
         "android.permission.INTERNET",
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.MANAGE_EXTERNAL_STORAGE"
+        "android.permission.MANAGE_EXTERNAL_STORAGE",
+        "android.permission.POST_NOTIFICATIONS"
     ],
     "description": "",
     "main": "main.js",

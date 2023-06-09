@@ -60,4 +60,11 @@ $(function() {
     $("#optionProject").change(function() {
         ui.showTasks(todo);
     });
+
+    /* krijg dit niet werkend op android
+    Notification.requestPermission().then(function() {
+        let options = {body: "Test Message"};
+        let note = new Notification("ToDo", options);
+    });
+    */
 })
