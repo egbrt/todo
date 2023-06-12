@@ -24,14 +24,14 @@ export class ToDo {
         let todo = this;
         let stored = window.localStorage.getItem("todo");
         if (stored) {
-            todo.parse(stored);
+            this.tasks = JSON.parse(stored);
             callback();
         }
         else {
             front.send("readToDo", path);
             front.on("readDone", function(data) {
-                window.localStorage.setItem("todo", data);
                 todo.parse(data);
+                window.localStorage.setItem("todo", JSON.stringify(todo.tasks));
                 callback();
             });
         
