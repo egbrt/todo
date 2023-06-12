@@ -41,11 +41,18 @@ ul.tasks li.checked {
     animation-iteration-count: 3;
 }
 
+ul.tasks li.deleting {
+    color: red;
+    animation-name: checkTask;
+    animation-duration: 1s;
+    animation-iteration-count: 3;
+}
+
 @keyframes checkTask {
-    0% {opacity: 0;}
-    25% {opacity: 0.25;}
-    50% {opacity: 0.75;}
-    100% {opacity: 1;}
+    0% {opacity: 1;}
+    25% {opacity: 0.75;}
+    50% {opacity: 0.25;}
+    100% {opacity: 0;}
 }
 
 #versionInfo {
@@ -65,8 +72,14 @@ ul.tasks li.checked {
 	border-style: solid;
 }
 
+#optionCancel {
+    display: none;
+    width: 70px;
+    height: 26px;
+}
+
 #optionMode {
-    width: 60px;
+    width: 70px;
     height: 26px;
 }
 

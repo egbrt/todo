@@ -4,6 +4,7 @@ import {ToDo} from "./todo.js";
 const CHECK = "Check";
 const EDIT = "Edit";
 const ADD = "Add";
+const DELETE = "Delete";
 const EDITING = "Cancel";
 const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
@@ -165,11 +166,12 @@ export class UI {
             if (ui.mode == CHECK) {
                 ui.delayedCheck(this, todo);
             }
+            else if (ui.mode == DELETE) {
+                ui.delayedCheck(this, todo);
+            }
             else { // ui.mode == EDIT
                 todo.changingTask = this.id;
                 ui.editTask(todo.tasks[this.id]);
-                ui.mode = EDITING;
-                $("#optionMode").html(ui.mode);
             }
         });
     }
@@ -178,23 +180,32 @@ export class UI {
     delayedCheck(item, todo)
     {
         let ui = this;
-        if ($(item).hasClass("checked")) {
-            $(item).removeClass("checked");
+        let mark = "checked";
+        if (ui.mode == DELETE) mark = "deleting";           
+        
+        if ($(item).hasClass(mark)) {
+            $(item).removeClass(mark);
             clearTimeout(ui.delayedComplete);
         }
         else {
             let taskId = item.id;
-            $(item).addClass("checked");
+            $(item).addClass(mark);
             ui.delayedComplete = setTimeout(function() {
-                ui.checkTask(todo.tasks[taskId]);
-                todo.sort();
+                if (ui.mode == CHECK) {
+                    ui.checkTask(todo.tasks[taskId]);
+                    todo.sort();
+                }
+                else if (ui.mode == DELETE) {
+                    todo.deleteTask(taskId);
+                    ui.showKeys(todo);
+                }
                 todo.write();
                 ui.showTasks(todo);
             }, 3000);
         }
     }
 
-    
+
     deleteCompletedTasks(todo)
     {
         if (this.deleteNumber > 0) {
@@ -204,7 +215,6 @@ export class UI {
             let now = new Date();
             let nowDate = now.toISOString().substr(0,10);
             
-            console.log("delete tasks after " + nowDate);
             while (i < todo.tasks.length) {
                 if (todo.tasks[i].completed) {
                     let date = new Date(todo.tasks[i].date_done);
@@ -324,12 +334,27 @@ export class UI {
         $("#optionContext").hide();
         $("#optionProject").hide();
         $("#newToDo").show(250);
-        $("#optionDelete").show();
         $("#optionSave").show();
         $('#optionSave').attr('disabled', ($("#newDescription").val() == ""));
+        $("#optionMode").hide();
+        $("#optionCancel").show();
+        this.mode = EDITING;
     }
     
     
+    cancelEditing()
+    {
+        $("#newToDo").hide();
+        $("#optionSave").hide();
+        $("#optionCancel").hide();
+        $("#optionMode").show();
+        $("#dueToDo").show(250);
+        $("#optionContext").show();
+        $("#optionProject").show();
+        this.mode = EDIT;
+    }
+    
+
     saveTask(todo)
     {
         let date = new Date().toISOString().substr(0,10);
@@ -347,14 +372,7 @@ export class UI {
         }
         else if (this.mode == EDITING) {
             todo.change(task);
-            $("#optionDelete").hide();
-            $("#optionSave").hide();
-            $("#newToDo").hide();
-            $("#dueToDo").show();
-            $("#optionContext").show();
-            $("#optionProject").show();
-            this.mode = EDIT;
-            $("#optionMode").html(this.mode);
+            this.cancelEditing();
         }
         this.showTasks(todo);
         this.showKeys(todo);
@@ -362,40 +380,12 @@ export class UI {
     }
     
     
-    deleteTask(todo)
-    {
-        todo.deleteCurrentTask();
-        $("#optionDelete").hide();
-        $("#optionSave").hide();
-        $("#newToDo").hide();
-        $("#dueToDo").show();
-        $("#optionContext").show();
-        $("#optionProject").show();
-        this.showTasks(todo);
-        this.showKeys(todo);
-        this.clearNew();
-        this.mode = EDIT;
-        $("#optionMode").html(this.mode);
-    }
-    
-    
-    gotoNextMode()
+    gotoMode()
     {
         this.hideSettings();
-        if (this.mode == EDITING) {
-            $("#optionSave").hide();
-            $("#optionDelete").hide();
-            $("#newToDo").hide();
-            $("#dueToDo").show();
-            $("#optionContext").show();
-            $("#optionProject").show();
+        this.mode = $("#optionMode").val();
+        if (this.mode == ADD) {
             this.clearNew();
-            this.mode = EDIT;
-        }
-        else if (this.mode == CHECK) {
-            this.mode = EDIT;
-        }
-        else if (this.mode == EDIT) {
             $("#dueToDo").hide();
             $("#optionContext").hide();
             $("#optionProject").hide();
@@ -404,21 +394,18 @@ export class UI {
             $('#optionSave').attr('disabled', ($("#newDescription").val() == ""));
             let date = new Date().toISOString().substr(0,10);
             $("#newDueDate").val(date);
-            this.mode = ADD;
         }
-        else {
+        else { // CHECK
+            $("#newToDo").hide();
             $("#optionSave").hide();
             $("#optionDelete").hide();
-            $("#newToDo").hide();
-            $("#dueToDo").show();
+            $("#dueToDo").show(250);
             $("#optionContext").show();
             $("#optionProject").show();
-            this.mode = CHECK;
         }
-        $("#optionMode").html(this.mode);
     }
     
-
+    
     clearNew()
     {
         $("#newPriority").val("A");

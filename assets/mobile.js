@@ -11,8 +11,12 @@ $(function() {
         ui.showKeys(todo);
     });
     
-    $("#optionMode").click(function() {
-        ui.gotoNextMode();
+    $("#optionMode").change(function() {
+        ui.gotoMode();
+    });
+    
+    $("#optionCancel").click(function() {
+        ui.cancelEditing();
     });
     
     $("#optionSettings").click(function() {

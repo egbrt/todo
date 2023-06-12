@@ -95,10 +95,10 @@ export class ToDo {
     }
     
     
-    deleteCurrentTask()
+    deleteTask(taskId)
     {
         let last = this.tasks.length - 1;
-        this.tasks[this.changingTask] = this.tasks[last];
+        this.tasks[taskId] = this.tasks[last];
         this.tasks.pop();
         this.sort();
         this.changingTask = -1;
@@ -110,7 +110,7 @@ export class ToDo {
         const a4b = -1;
         const b4a = 1;
         this.tasks.sort(function(a, b) {
-            let order = 9;
+            let order = 0;
             if (a.completed == b.completed) {
                 let aDate = a.due;
                 let bDate = b.due;
