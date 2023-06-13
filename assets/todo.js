@@ -6,6 +6,7 @@ export class ToDo {
         this.contexts = Array();
         this.projects = Array();
         this.changingTask = -1;
+        this.changed = false;
     }
     
     reload(file, callback)
@@ -17,6 +18,7 @@ export class ToDo {
             reader.addEventListener("load", function() {
                 window.localStorage.setItem("todo", reader.result);
                 todo.parse(reader.result);
+                todo.changed = false;
                 callback();
             });
             reader.readAsText(file);
@@ -37,6 +39,8 @@ export class ToDo {
     write()
     {
         window.localStorage.setItem("todo", this.getText());
+        $("#downloadToDo2").show(250);
+        this.changed = true;
     }
     
     
@@ -47,6 +51,8 @@ export class ToDo {
         a.href = URL.createObjectURL(blob);
         a.download = 'todo.txt';
         a.click();
+        this.changed = false;
+        $("#downloadToDo2").hide(250);
     } 
     
     

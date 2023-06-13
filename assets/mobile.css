@@ -26,6 +26,16 @@ body {
     height: 32px;
     width: 90px;
 	box-shadow: 8px 8px 3px black;
+    z-index: 2;
+}
+
+#downloadToDo2 {
+    position: absolute;
+    display: none;
+    top: 12px;
+    right: 4px;
+    z-index: 3;
+    cursor: pointer;
 }
 
 .contents {

@@ -25,6 +25,10 @@ $(function() {
     $("#downloadToDo").click(function() {
         todo.writeAsFile();
     });
+    
+    $("#downloadToDo2").click(function() {
+        todo.writeAsFile();
+    });
 
     $("#optionMode").change(function() {
         ui.gotoMode();
