@@ -23,7 +23,7 @@ $(function() {
     });
     
     $("#downloadToDo").click(function() {
-        navigator.clipboard.writeText(todo.getText());
+        todo.writeAsFile();
     });
 
     $("#optionMode").change(function() {

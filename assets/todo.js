@@ -40,6 +40,16 @@ export class ToDo {
     }
     
     
+    writeAsFile()
+    {
+        let a = document.createElement('a');
+        let blob = new Blob([this.getText()]);
+        a.href = URL.createObjectURL(blob);
+        a.download = 'todo.txt';
+        a.click();
+    } 
+    
+    
     getText()
     {
         let text = "";
