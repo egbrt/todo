@@ -6,11 +6,26 @@ let ui = new UI();
 let todo = new ToDo();
 
 $(function() {
+    if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('worker.js');
+    }
+
     todo.read(function() {
         ui.showTasks(todo);
         ui.showKeys(todo);
     });
     
+    $("#uploadToDo").change(function() {
+        todo.reload(this.files[0], function() {
+            ui.showTasks(todo);
+            ui.showKeys(todo);
+        });
+    });
+    
+    $("#downloadToDo").click(function() {
+        navigator.clipboard.writeText(todo.getText());
+    });
+
     $("#optionMode").change(function() {
         ui.gotoMode();
     });
@@ -26,14 +41,6 @@ $(function() {
     $("#setTheme").change(function() {
         ui.setTheme();
     });
-    
-    $("#reloadToDo").click(function() {
-        todo.reload(function() {
-            ui.showTasks(todo);
-            ui.showKeys(todo);
-        });
-    });
-
     
     $("#newDescription").keyup(function() {
         $('#optionSave').attr('disabled', ($(this).val() == ""));
@@ -65,10 +72,17 @@ $(function() {
         ui.showTasks(todo);
     });
 
-    /* krijg dit niet werkend op android
-    Notification.requestPermission().then(function() {
-        let options = {body: "Test Message"};
-        let note = new Notification("ToDo", options);
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function(e) {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        deferredPrompt = e;
+        $('#installAsApp').show();
     });
-    */
+
+    $('#installAsApp').click(function(e) {
+        $('#installAsApp').hide();
+        deferredPrompt.prompt();
+    });
+
 })

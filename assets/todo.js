@@ -1,10 +1,5 @@
 import {Task} from "./task.js";
 
-let path = "/home/egbert/Documents/";
-if (window.android) {
-    path = app.getPath("storage") + "/Documents/";
-}
-
 export class ToDo {
     constructor() {
         this.tasks = Array();
@@ -13,10 +8,19 @@ export class ToDo {
         this.changingTask = -1;
     }
     
-    reload(callback)
+    reload(file, callback)
     {
-        window.localStorage.removeItem("todo");
-        this.read(callback);
+        if (file) {
+            let todo = this;
+            window.localStorage.removeItem("todo");
+            let reader = new FileReader();
+            reader.addEventListener("load", function() {
+                window.localStorage.setItem("todo", reader.result);
+                todo.parse(reader.result);
+                callback();
+            });
+            reader.readAsText(file);
+        }
     }
     
     read(callback)
@@ -27,33 +31,22 @@ export class ToDo {
             todo.parse(stored);
             callback();
         }
-        else {
-            front.send("readToDo", path);
-            front.on("readDone", function(data) {
-                window.localStorage.setItem("todo", data);
-                todo.parse(data);
-                callback();
-            });
-        
-            front.on("readError", function(msg) {
-                $("#dueToDo").append(msg);
-            });
-        }
     }
     
     
     write()
     {
-        let data = "";
+        window.localStorage.setItem("todo", this.getText());
+    }
+    
+    
+    getText()
+    {
+        let text = "";
         this.tasks.forEach(function(task) {
-            data += task.get() + "\n";
+            text += task.get() + "\n";
         });
-
-        window.localStorage.setItem("todo", data);
-        front.send("writeToDo", path, data);
-        front.on("writeError", function(msg) {
-            alert(msg);
-        });
+        return text;
     }
     
     

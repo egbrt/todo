@@ -3,19 +3,19 @@
 <head>
 	<title>ToDo</title>
     <meta charset="utf-8">
-    <meta name="description" content="Simple smart home application" />
+    <meta name="description" content="ToDo app" />
     <meta name="author" content="Egbert van der Haring" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#005070"/>
-    <link rel="stylesheet" href="../assets/mobile.css" type="text/css" />
-	<script type="text/javascript" src="../node_modules/androidjs/lib/androidjs.js"></script>
-	<script type="text/javascript" src="../assets/jquery.min.js"></script>
-	<script type="text/javascript" src="../assets/androidjs.js"></script>
-	<script type="module" src="../assets/mobile.js"></script>
+	<link rel="manifest" href="todo.webmanifest">
+    <link rel="shortcut icon" href="assets/icon/icon-128.png">
+    <link rel="stylesheet" href="assets/mobile.css" type="text/css" />
+	<script type="text/javascript" src="assets/jquery.min.js"></script>
+	<script type="module" src="assets/mobile.js"></script>
 </head>
 
 <body>
-<div id="rawToDo" class="contents"></div>
+<button id="installAsApp">Install</button>
 <div id="dueToDo" class="contents"></div>
 <div id="newToDo" class="contents">
     <p><select name="newPriority" id="newPriority"></select><input type="text" id="newDescription"></input></p>
@@ -39,8 +39,11 @@
     <p><label for="setDelete">Delete checked tasks after: </label>
     <select id="setDeleteNumber" name="setDeleteNumber"><select>
     <select id="setDeleteType" name="setDeleteType"><select></p>
-    <p>ToDo caches the contents of <em>Documents/todo.txt</em>. If you have edited, or changed <em>Documents/todo.txt</em> 
-    with another app, then press <button id="reloadToDo">this button</button> to load the contents of the changed file.</p>
+    <hr/>
+    <p>To import an existing <em>todo.txt</em> file, select your <em>todo.txt</em> below.<br/>
+    <input id="uploadToDo" type="file"/></p>
+    <p>The contents of the current <em>todo.txt</em> file can be copied to the clipboard by clicking:<br/>
+    <button id="downloadToDo">Copy <em>todo.txt</em> to clipboard</button></p>
 </div>
 
 <div id="options">
@@ -59,7 +62,7 @@
     </select>
     <button id="optionSave">Save</button>
     <button id="optionSettings">Settings</button>
-    <span id="versionInfo">ToDo 0.6.00</span>
+    <span id="versionInfo">ToDo 0.7.00</span>
 </div>
 </body>
 
