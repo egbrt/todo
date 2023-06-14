@@ -46,10 +46,11 @@ export class ToDo {
     
     writeAsFile()
     {
+        let now = new Date();
         let a = document.createElement('a');
         let blob = new Blob([this.getText()]);
         a.href = URL.createObjectURL(blob);
-        a.download = 'todo.txt';
+        a.download = "todo_" + now.toISOString().substr(0,10).replace(/-/g, "") + ".txt";
         a.click();
         this.changed = false;
         $("#downloadToDo2").hide(250);
