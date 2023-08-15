@@ -126,6 +126,7 @@ export class UI {
 
         ui.deleteCompletedTasks(todo);
         todo.tasks.forEach(function(task, i) {
+            console.log(task);
             if ((currentContext == "@any") || (task.context.indexOf(currentContext) >= 0)) {
                 if ((currentProject == "+all") || (task.project.indexOf(currentProject) >= 0)) {
                     if (task.completed) {
@@ -408,7 +409,7 @@ export class UI {
     
     clearNew()
     {
-        $("#newPriority").val("A");
+        $("#newPriority").val("C");
         $("#newDescription").val("");
         $("#newKeys").val("");
         $("#optionSave").attr("disabled", true);
