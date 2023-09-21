@@ -155,7 +155,9 @@ export class UI {
                         }
                         tree += "</p><ul class=\"tasks\">";
                     }
-                    tree += "<li id=\"" + i + "\">" + task.display() + "</li>";
+                    tree += "<li id=\"" + i + "\"";
+                    tree += " class=\"pri" + task.priority + "\"";
+                    tree += ">" + task.display() + "</li>";
                 }
             }
         });

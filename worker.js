@@ -1,4 +1,4 @@
-var cacheName = 'v004';
+var cacheName = 'v005';
 var appFiles = [
   './index.html',
   './assets/icon/icon-512.png',
