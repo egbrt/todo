@@ -133,12 +133,15 @@ export class Task {
 
     display() {
         let text = "";
+        /* actually, this is not that important anymore
         if (this.completed) {
             text = "x ";
         }
         else if (this.priority != "") {
             text += "(" + this.priority + ") ";
         }
+        */
+        /* not that interesting
         if (this.completed) {
             if (this.date_done != "") {
                 text += this.date_done + " ";
@@ -147,6 +150,7 @@ export class Task {
                 text += this.date_created + " ";
             }
         }
+        */
         if (this.description != "") {
             text += this.description + " ";
         }
@@ -163,12 +167,16 @@ export class Task {
             text += this.special + " ";
         }
         if (this.completed) {
+            /* not that interesting
             if (this.due != "") {
                 text += "due:" + this.due + " ";
             }
+            */
+            /* no longer important, reflected in font size
             if (this.priority != "") {
                 text += "pri:" + this.priority;
             }
+            */
         }
         return text.trim();
     }
