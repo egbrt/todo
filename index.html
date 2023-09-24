@@ -32,11 +32,18 @@
 </div>
 
 <div id="settings" class="contents">
-    <p><label for="setTheme">Theme: </label>
-    <select id="setTheme">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>"
-    </select></p>
+    <table>
+        <tr><td><label for="setTheme">Theme: </label></td>
+        <td><select id="setTheme">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>"
+        </select></td></tr>
+        <tr><td><label for="setPriority">Priority: </label></td>
+        <td><select id="setPriority">
+            <option value="priLabel">show value</option>
+            <option value="priFont">show as font size</option>
+        </select></td></tr>
+    </table>
     <p><label for="setDelete">Delete checked tasks after: </label>
     <select id="setDeleteNumber" name="setDeleteNumber"><select>
     <select id="setDeleteType" name="setDeleteType"><select></p>
@@ -63,7 +70,7 @@
     </select>
     <button id="optionSave">Save</button>
     <button id="optionSettings">Settings</button>
-    <span id="versionInfo">ToDo 1.0.0</span>
+    <span id="versionInfo">ToDo 1.10.0</span>
 </div>
 </body>
 

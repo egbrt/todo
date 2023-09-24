@@ -10,11 +10,14 @@ const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Sa
 
 const LIGHT_THEME = "light";
 const DARK_THEME = "dark";
+const PRIORITY_LABEL = "priLabel";
+const PRIORITY_FONT = "priFont";
 
 export class UI {
     constructor() {
         this.mode = CHECK;
         this.theme = LIGHT_THEME;
+        this.priority = PRIORITY_LABEL;
         this.settingsVisible = false;
         this.deleteNumber = 0;
         this.deleteType = "d";
@@ -23,7 +26,11 @@ export class UI {
         let stored = window.localStorage.getItem("theme");
         if (stored) this.theme = stored;
         $("#setTheme").val(this.theme);
-        $('body').attr('theme', this.theme);
+        $("body").attr('theme', this.theme);
+        
+        stored = window.localStorage.getItem("priority");
+        if (stored) this.priority = stored;
+        $("#setPriority").val(this.priority);
 
         stored = window.localStorage.getItem("deleteNumber");
         if (stored) this.deleteNumber = stored;
@@ -114,7 +121,6 @@ export class UI {
     showTasks(todo)
     {
         let ui = this;
-        ui.hideSettings();
         $("#dueToDo").empty();
         let currentContext = $("#optionContext").val();
         let currentProject = $("#optionProject").val();
@@ -126,7 +132,6 @@ export class UI {
 
         ui.deleteCompletedTasks(todo);
         todo.tasks.forEach(function(task, i) {
-            console.log(task);
             if ((currentContext == "@any") || (task.context.indexOf(currentContext) >= 0)) {
                 if ((currentProject == "+all") || (task.project.indexOf(currentProject) >= 0)) {
                     if (task.completed) {
@@ -156,8 +161,13 @@ export class UI {
                         tree += "</p><ul class=\"tasks\">";
                     }
                     tree += "<li id=\"" + i + "\"";
-                    tree += " class=\"pri" + task.priority + "\"";
-                    tree += ">" + task.display() + "</li>";
+                    if (ui.priority == PRIORITY_LABEL) {
+                        tree += ">(" + task.priority + ") ";
+                    }
+                    else {
+                        tree += " class=\"pri" + task.priority + "\">";
+                    }
+                    tree += task.display() + "</li>";
                 }
             }
         });
@@ -450,5 +460,12 @@ export class UI {
         this.theme = $("#setTheme").val();
         $('body').attr('theme',this.theme);
         window.localStorage.setItem('theme',this.theme);
+    }
+    
+    setPriorityDisplay(todo)
+    {
+        this.priority = $("#setPriority").val();
+        window.localStorage.setItem("priority", this.priority);
+        this.showTasks(todo);
     }
 }

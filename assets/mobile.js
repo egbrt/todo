@@ -46,6 +46,10 @@ $(function() {
         ui.setTheme();
     });
     
+    $("#setPriority").change(function() {
+        ui.setPriorityDisplay(todo);
+    });
+    
     $("#newDescription").keyup(function() {
         $('#optionSave').attr('disabled', ($(this).val() == ""));
     });
